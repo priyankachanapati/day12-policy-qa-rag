@@ -140,3 +140,16 @@ All settings can be overridden through environment variables or `.env` (see `.en
   that share vocabulary with a policy can pass it, so the LLM's refusal rule is the main defence.
 * The LLM output is non-deterministic even at temperature 0, so results can vary between runs.
 * The document set is small (6 policies, 22 chunks); behaviour on a large corpus has not been tested.
+
+## Day 12 – Activity 1: Embeddings Deep Dive
+
+`activities/embeddings-deep-dive/` is a separate, self-contained activity. It embeds 20 sentences with the Google
+Gemini embeddings API (`gemini-embedding-001`, 3072 dimensions) and prints a 10x10 cosine-similarity matrix, the
+closest pair, and the top-3 nearest neighbours for all 20 sentences. It does not use or change the RAG pipeline.
+
+- Closest pair: S01 & S02 ("It is raining heavily outside today." / "There is a lot of rain falling this
+  afternoon."), cosine similarity **0.9419**.
+- Saved output: `activities/embeddings-deep-dive/results/execution-output.txt`
+- Write-up: `docs/Day-12-Activity-1-Embeddings-Deep-Dive.md`; screenshots `docs/evidence/10-*.png`, `11-*.png`
+- Run it: see `activities/embeddings-deep-dive/README.md`. The cached embeddings are included, so a run makes no
+  API call unless `--refresh` is passed.
