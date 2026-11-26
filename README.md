@@ -177,3 +177,16 @@ with semantic search and recommendation examples.
 - Dimension **3072**. Execution 1 made 2 API requests (1 batch of 20 sentences + 1 query); execution 2 made
   **0 API requests** (all 21 texts served from the cache). See `activities/openai-text-embeddings/results.txt`.
 - Write-up: `docs/Day-12-Activity-3-Text-Embeddings-API.md`
+
+## Day 12 – Activity 4: Persistent Vector Database with Chroma
+
+`activities/chroma-vector-database/` loads **20 Markdown documents** (HR, IT, leave, security, workplace), chunks
+them by section into **60 chunks**, and stores them in a persistent Chroma collection `brightlake_policies`. Each
+chunk carries `source`, `section`, `topic`, `title` and `chunk_index` metadata. Embeddings use local
+all-MiniLM-L6-v2 (no API calls). ChromaDB 1.5.9 is used directly, without LangChain.
+
+- 3 similarity queries, 2 with `where` metadata filters (`topic`; `topic` AND `section`). All filter checks PASS,
+  and the reopen-from-disk persistence check PASSES.
+- Run `python ingest.py` then `python query.py`. `chroma_db/` is git-ignored and rebuilt by `ingest.py`.
+- Output: `activities/chroma-vector-database/results.txt`; write-up:
+  `docs/Day-12-Activity-4-Persistent-Vector-Database-Chroma.md`

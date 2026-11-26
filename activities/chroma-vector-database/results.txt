@@ -1,0 +1,66 @@
+$ python ingest.py
+==========================================================================================
+DAY 12 - ACTIVITY 4: PERSISTENT VECTOR DATABASE WITH CHROMA - INGESTION
+==========================================================================================
+Chroma version     : 1.5.9 | PersistentClient path: chroma_db/
+Collection         : brightlake_policies (cosine distance)
+Embedding function : all-MiniLM-L6-v2 (ONNX, local via Chroma) - local, no API calls
+Documents loaded   : 20 Markdown files from documents/
+Chunking           : one chunk per '## ' section; split at paragraphs if > 400 chars
+Chunks stored      : 60 (sections split into several chunks: 0)
+Per topic          : {'hr': 12, 'it': 12, 'leave': 12, 'security': 12, 'workplace': 12}
+Metadata keys      : ['chunk_index', 'section', 'source', 'title', 'topic']
+Embedding dimension: 384
+Sample chunk id    : hr-01-code-of-conduct::purpose::0
+Sample metadata    : {'title': 'Code of Conduct', 'source': 'hr-01-code-of-conduct.md', 'chunk_index': 0, 'section': 'Purpose', 'topic': 'hr'}
+Sample text        : Code of Conduct - Purpose
+The code of conduct sets the standard of behaviour expected from every employee. It ...
+[ingest.py exit=0]
+
+$ python query.py   (new process)
+==========================================================================================
+DAY 12 - ACTIVITY 4: QUERIES (separate process - data read from the persistent chroma_db/)
+==========================================================================================
+Collection: brightlake_policies | chunks on disk: 60 | embeddings: all-MiniLM-L6-v2 (ONNX, local via Chroma)
+Scores: cosine distance (lower = closer); similarity = 1 - distance (higher = closer)
+
+Q1 - no filter: 'How many days of annual leave do full-time employees get?'
+  where = None
+  1. distance=0.1977 similarity=0.8023 | source=leave-01-annual-leave.md | section=Entitlement | topic=leave
+     Full-time employees receive 20 days of paid annual leave per calendar year. Part-time employees receive leave on a pro-rata basis.
+  2. distance=0.3854 similarity=0.6146 | source=leave-04-public-holidays.md | section=Working on a Holiday | topic=leave
+     Employees who work on a public holiday receive one compensatory day off, to be taken within 60 days.
+  3. distance=0.3902 similarity=0.6098 | source=leave-02-sick-leave.md | section=Entitlement | topic=leave
+     Employees receive 10 days of paid sick leave per calendar year. Unused sick leave does not carry forward.
+
+Q2 - metadata filter on topic: 'What should I do if I lose my phone?'
+  where = {'topic': 'security'}
+  1. distance=0.6050 similarity=0.3950 | source=sec-02-multi-factor-authentication.md | section=Lost Phone | topic=security
+     If the phone with the authenticator app is lost, contact the IT Service Desk immediately to reset MFA.
+  2. distance=0.8223 similarity=0.1777 | source=sec-03-phishing-and-incidents.md | section=Incident Response | topic=security
+     The security team isolates affected devices, resets credentials and informs the employee of the next steps.
+  3. distance=0.8291 similarity=0.1709 | source=sec-03-phishing-and-incidents.md | section=Reporting | topic=security
+     Suspicious emails must be reported with the Report Phishing button. Suspected account compromise must be reported to the IT Service Desk within 1 hour.
+  [PASS] all 3 results satisfy the metadata filter
+  [PASS] 12 chunks in the collection match this filter; expected min(3, 12) = 3 results, got 3
+  Same query WITHOUT the filter (for comparison):
+    1. distance=0.6050 | source=sec-02-multi-factor-authentication.md | section=Lost Phone | topic=security
+    2. distance=0.6834 | source=it-01-laptop-and-equipment.md | section=Lost or Stolen Devices | topic=it
+    3. distance=0.8050 | source=it-03-service-desk.md | section=Contact | topic=it
+
+Q3 - metadata filter on topic AND section: 'How much paid time off do I get when I am ill?'
+  where = {'$and': [{'topic': 'leave'}, {'section': 'Entitlement'}]}
+  1. distance=0.4871 similarity=0.5129 | source=leave-02-sick-leave.md | section=Entitlement | topic=leave
+     Employees receive 10 days of paid sick leave per calendar year. Unused sick leave does not carry forward.
+  2. distance=0.5722 similarity=0.4278 | source=leave-01-annual-leave.md | section=Entitlement | topic=leave
+     Full-time employees receive 20 days of paid annual leave per calendar year. Part-time employees receive leave on a pro-rata basis.
+  [PASS] all 2 results satisfy the metadata filter
+  [PASS] 2 chunks in the collection match this filter; expected min(3, 2) = 2 results, got 2
+
+Persistence check: client closed, system cache cleared, database reopened from chroma_db/
+  reopened collection count: 60
+  Q1 after reopen: ['leave-01-annual-leave::entitlement::0 (0.1977)', 'leave-04-public-holidays::working-on-a-holiday::0 (0.3854)', 'leave-02-sick-leave::entitlement::0 (0.3902)']
+  [PASS] same chunk IDs and distances as before reopening
+
+OVERALL: PASS
+[query.py exit=0]

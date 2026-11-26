@@ -1,0 +1,7 @@
+# Persistent Chroma database (rebuilt by `python ingest.py`)
+chroma_db/
+
+.venv/
+__pycache__/
+.ruff_cache/
+.DS_Store
