@@ -1,0 +1,80 @@
+================================================================================================
+DAY 12 - ACTIVITY 7: GROUNDED RETRIEVAL WITH A RELEVANCE THRESHOLD - 2026-11-26T13:02:36+00:00
+================================================================================================
+Reused from Activity 6: rag.retrieve (Chroma rag_db/, 60 chunks, all-MiniLM-L6-v2 local), grounded prompt,
+Groq call (openai/gpt-oss-120b) and citation validator.
+Score metric: Chroma cosine DISTANCE d (lower = closer) -> cosine SIMILARITY s = 1 - d (higher = closer).
+Rule: answer only if the BEST chunk has s >= T (i.e. d <= 1 - T); otherwise reply "I don't know" (no LLM call).
+
+STEP 1 - CALIBRATION (separate questions, used only to choose T)
+  0.8139  in-scope   How many days of paid annual leave do full-time employees get?
+  0.7669  in-scope   What should I do if I lose the phone with my authenticator app?
+  0.7518  in-scope   How often are fire drills held?
+  0.6990  in-scope   How long must my password be?
+  0.6343  in-scope   How many days per week can I work from home?
+  0.5731  in-scope   What is the hotel limit per night on business travel?
+  0.3106  off-topic  What is the company's policy on bringing pets to the office?
+  0.1569  off-topic  What is the current share price of Apple?
+  0.1536  off-topic  How do I learn to play the guitar?
+  0.1136  off-topic  What will the weather be like tomorrow?
+  0.0981  off-topic  What is the capital of Australia?
+  0.0897  off-topic  Which planet is closest to the sun?
+  lowest in-scope = 0.5731 | highest off-topic = 0.3106 | T = midpoint rounded = 0.44  (distance cut-off = 0.56)
+
+STEP 2 - TEST QUESTIONS (not used for calibration)
+
+T1 (in-scope): When is the IT Service Desk available?
+  retrieved: it-03-service-desk::contact::0 (s=0.7203, d=0.2797), it-03-service-desk::out-of-hours::0 (s=0.5535, d=0.4465), it-03-service-desk::ticket-priorities::0 (s=0.5161, d=0.4839), work-02-office-guidelines::desk-booking::0 (s=0.4921, d=0.5079)
+  best similarity = 0.7203 (distance 0.2797) vs T = 0.44 -> PASS: retrieve + generate
+  chunks sent to LLM (s >= T): ['it-03-service-desk::contact::0', 'it-03-service-desk::out-of-hours::0', 'it-03-service-desk::ticket-priorities::0', 'work-02-office-guidelines::desk-booking::0']
+  status: answered | LLM called: True
+  final answer: The IT Service Desk is available from 08:00 to 18:00 on working days. [it-03-service-desk::contact::0]
+  citations: ['it-03-service-desk::contact::0'] | invalid: none
+  [PASS] grounded answer with citations that are all retrieved chunks
+
+T2 (in-scope): How do I report a phishing email?
+  retrieved: sec-03-phishing-and-incidents::reporting::0 (s=0.6651, d=0.3349), sec-03-phishing-and-incidents::recognising-phishing::0 (s=0.5217, d=0.4783), sec-03-phishing-and-incidents::incident-response::0 (s=0.4611, d=0.5389), hr-01-code-of-conduct::reporting-concerns::0 (s=0.3225, d=0.6775)
+  best similarity = 0.6651 (distance 0.3349) vs T = 0.44 -> PASS: retrieve + generate
+  chunks sent to LLM (s >= T): ['sec-03-phishing-and-incidents::reporting::0', 'sec-03-phishing-and-incidents::recognising-phishing::0', 'sec-03-phishing-and-incidents::incident-response::0']
+  status: answered | LLM called: True
+  final answer: Suspicious emails should be reported using the Report Phishing button [sec-03-phishing-and-incidents::reporting::0].
+  citations: ['sec-03-phishing-and-incidents::reporting::0'] | invalid: none
+  [PASS] grounded answer with citations that are all retrieved chunks
+
+T3 (off-topic): What is a good recipe for chocolate cake?
+  retrieved: work-04-travel-and-expenses::meals::0 (s=0.0559, d=0.9441), work-01-remote-work::core-hours::0 (s=0.0490, d=0.9510), leave-02-sick-leave::notification::0 (s=0.0449, d=0.9551), work-04-travel-and-expenses::booking-travel::0 (s=0.0382, d=0.9618)
+  best similarity = 0.0559 (distance 0.9441) vs T = 0.44 -> BELOW THRESHOLD: I dont know (LLM not called)
+  status: i_dont_know | LLM called: False
+  final answer: I don't know. The policy documents do not contain information relevant to this question.
+  [PASS] off-topic question answered "I don't know" without calling the LLM
+
+T4 (off-topic): Who won the football World Cup in 2018?
+  retrieved: hr-02-performance-reviews::review-cycle::0 (s=0.1191, d=0.8809), it-02-software-installation::unapproved-software::0 (s=0.1061, d=0.8939), it-01-laptop-and-equipment::issued-equipment::0 (s=0.0857, d=0.9143), it-02-software-installation::requesting-new-software::0 (s=0.0682, d=0.9318)
+  best similarity = 0.1191 (distance 0.8809) vs T = 0.44 -> BELOW THRESHOLD: I dont know (LLM not called)
+  status: i_dont_know | LLM called: False
+  final answer: I don't know. The policy documents do not contain information relevant to this question.
+  [PASS] off-topic question answered "I don't know" without calling the LLM
+
+LLM calls made: 2 (only questions that passed the threshold)
+OVERALL: PASS
+
+==================================================================================================
+OFFLINE TESTS (offline-tests.txt, appended verbatim)
+==================================================================================================
+$ python -m pytest -v   (offline: real local retrieval, stand-in LLM, no API calls)
+============================= test session starts ==============================
+platform darwin -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0 -- /Users/vamsi/Documents/AI-Engineering-Training/Day-12/01-Code/grounded-retrieval-threshold/../rag-from-scratch/.venv/bin/python
+rootdir: /Users/vamsi/Documents/AI-Engineering-Training/Day-12/01-Code/grounded-retrieval-threshold
+plugins: anyio-4.16.0
+collecting ... collected 8 items
+
+test_threshold.py::test_similarity_is_one_minus_distance PASSED          [ 12%]
+test_threshold.py::test_calibration_separates_sets PASSED                [ 25%]
+test_threshold.py::test_test_questions_are_not_calibration_questions PASSED [ 37%]
+test_threshold.py::test_off_topic_says_i_dont_know_without_llm[What is a good recipe for chocolate cake?] PASSED [ 50%]
+test_threshold.py::test_off_topic_says_i_dont_know_without_llm[Who won the football World Cup in 2018?] PASSED [ 62%]
+test_threshold.py::test_in_scope_passes_threshold_and_only_strong_chunks_reach_llm[When is the IT Service Desk available?] PASSED [ 75%]
+test_threshold.py::test_in_scope_passes_threshold_and_only_strong_chunks_reach_llm[How do I report a phishing email?] PASSED [ 87%]
+test_threshold.py::test_citation_to_unretrieved_chunk_is_withheld PASSED [100%]
+
+============================== 8 passed in 2.52s ===============================

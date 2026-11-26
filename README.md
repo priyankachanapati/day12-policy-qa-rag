@@ -216,3 +216,17 @@ is missing).
   covered by the documents gets NOT_FOUND; 0 invalid citations. See `activities/rag-from-scratch/results.txt`.
 - Offline tests: 12 passed (`activities/rag-from-scratch/offline-tests.txt`).
 - Write-up: `docs/Day-12-Activity-6-RAG-Pipeline-from-Scratch.md`
+
+## Day 12 – Activity 7: Grounded Retrieval and Relevance Threshold
+
+`activities/grounded-retrieval-threshold/retriever.py` adds a relevance threshold to the Activity 6 retriever, which
+it imports and reuses. Chroma returns cosine **distance** (lower = closer); the threshold is applied to cosine
+**similarity = 1 − distance** (higher = closer). If the best chunk has similarity below **T = 0.44** (calibrated on a
+separate question set), the bot answers "I don't know" without calling the LLM.
+
+- Off-topic questions: "chocolate cake recipe" (0.0559) and "World Cup 2018" (0.1191) both got "I don't know", with
+  no LLM call.
+- In-scope questions: "IT Service Desk hours" (0.7203) and "report a phishing email" (0.6651) were answered with
+  valid `[chunk_id]` citations. OVERALL PASS (2 Groq calls).
+- Offline tests: 8 passed. A fresh clone rebuilds `activities/rag-from-scratch/rag_db/` locally if it is missing.
+- Write-up: `docs/Day-12-Activity-7-Grounded-Retrieval-Threshold.md`

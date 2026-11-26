@@ -1,0 +1,17 @@
+$ python -m pytest -v   (offline: real local retrieval, stand-in LLM, no API calls)
+============================= test session starts ==============================
+platform darwin -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0 -- /Users/vamsi/Documents/AI-Engineering-Training/Day-12/01-Code/grounded-retrieval-threshold/../rag-from-scratch/.venv/bin/python
+rootdir: /Users/vamsi/Documents/AI-Engineering-Training/Day-12/01-Code/grounded-retrieval-threshold
+plugins: anyio-4.16.0
+collecting ... collected 8 items
+
+test_threshold.py::test_similarity_is_one_minus_distance PASSED          [ 12%]
+test_threshold.py::test_calibration_separates_sets PASSED                [ 25%]
+test_threshold.py::test_test_questions_are_not_calibration_questions PASSED [ 37%]
+test_threshold.py::test_off_topic_says_i_dont_know_without_llm[What is a good recipe for chocolate cake?] PASSED [ 50%]
+test_threshold.py::test_off_topic_says_i_dont_know_without_llm[Who won the football World Cup in 2018?] PASSED [ 62%]
+test_threshold.py::test_in_scope_passes_threshold_and_only_strong_chunks_reach_llm[When is the IT Service Desk available?] PASSED [ 75%]
+test_threshold.py::test_in_scope_passes_threshold_and_only_strong_chunks_reach_llm[How do I report a phishing email?] PASSED [ 87%]
+test_threshold.py::test_citation_to_unretrieved_chunk_is_withheld PASSED [100%]
+
+============================== 8 passed in 2.52s ===============================
