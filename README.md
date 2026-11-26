@@ -190,3 +190,16 @@ all-MiniLM-L6-v2 (no API calls). ChromaDB 1.5.9 is used directly, without LangCh
 - Run `python ingest.py` then `python query.py`. `chroma_db/` is git-ignored and rebuilt by `ingest.py`.
 - Output: `activities/chroma-vector-database/results.txt`; write-up:
   `docs/Day-12-Activity-4-Persistent-Vector-Database-Chroma.md`
+
+## Day 12 – Activity 5: RAG vs Fine-Tuning
+
+`activities/rag-vs-finetuning/` is a conceptual activity (no code and no API calls). It covers what RAG adds to an
+LLM, what fine-tuning is, how they differ, and when to use each or both.
+
+| Use case | Decision | Reasoning (one line) |
+|---|---|---|
+| HR policy bot | RAG | Policies change and answers must be traceable to the current document. |
+| Code-style assistant | Fine-tuning | Coding style is a consistent behaviour learned from examples, not facts to look up. |
+| Product catalog Q&A | RAG | Prices, specifications and stock change often and must be read from the live catalog. |
+
+Full analysis: `activities/rag-vs-finetuning/decision_analysis.md`; write-up: `docs/Day-12-Activity-5-RAG-vs-Fine-Tuning.md`.
