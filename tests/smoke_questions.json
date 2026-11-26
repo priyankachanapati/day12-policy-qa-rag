@@ -1,0 +1,138 @@
+{
+  "description": "15-question smoke test for Policy Q&A RAG v1: 12 answerable, 3 unanswerable.",
+  "correctness_criteria": {
+    "answerable": [
+      "status == 'answered' (not refused, not withheld by citation validation)",
+      "every group in required_facts is matched: each group is a list of acceptable phrasings, at least one must appear in the answer (case-insensitive)",
+      "at least one citation, and every citation is valid (chunk was retrieved and policy ID matches) with no malformed citations",
+      "at least one valid citation points to expected_policy_id",
+      "citation support (added after run 1, applied from run 2): every required fact appears in the text of at least one validly cited chunk"
+    ],
+    "unanswerable": [
+      "status is 'refused' or 'refused_no_context' (the mandated refusal sentence)",
+      "the answer contains no citations"
+    ]
+  },
+  "questions": [
+    {
+      "id": "SM-01",
+      "question": "How many days of paid annual leave do full-time employees receive each year?",
+      "answerable": true,
+      "expected_policy_id": "HR-001",
+      "expected_answer": "20 days of paid annual leave per calendar year.",
+      "required_facts": [["20 days", "twenty days", "20 paid", "20 working days"]]
+    },
+    {
+      "id": "SM-02",
+      "question": "How many unused annual leave days can be carried forward, and by when must they be used?",
+      "answerable": true,
+      "expected_policy_id": "HR-001",
+      "expected_answer": "Up to 5 days; they must be used by 31 March of the following year.",
+      "required_facts": [["5", "five"], ["31 march", "march 31"]]
+    },
+    {
+      "id": "SM-03",
+      "question": "When do I need a medical certificate for sick leave?",
+      "answerable": true,
+      "expected_policy_id": "HR-001",
+      "expected_answer": "For any sick absence longer than 2 consecutive working days.",
+      "required_facts": [["2 consecutive", "two consecutive", "more than 2", "more than two", "longer than 2", "longer than two"]]
+    },
+    {
+      "id": "SM-04",
+      "question": "How many days per week can an eligible employee work from home?",
+      "answerable": true,
+      "expected_policy_id": "HR-002",
+      "expected_answer": "Up to 2 days per week (after completing probation).",
+      "required_facts": [["2 days", "two days"]]
+    },
+    {
+      "id": "SM-05",
+      "question": "What are the core hours I must be available when working from home?",
+      "answerable": true,
+      "expected_policy_id": "HR-002",
+      "expected_answer": "10:00 to 16:00 local time.",
+      "required_facts": [["10:00", "10 am", "10am", "10.00"], ["16:00", "4 pm", "4pm", "16.00"]]
+    },
+    {
+      "id": "SM-06",
+      "question": "How long do I have to submit an expense claim, and when is a receipt required?",
+      "answerable": true,
+      "expected_policy_id": "HR-003",
+      "expected_answer": "Within 30 calendar days of the expense; an itemised receipt is required for each expense above USD 25.",
+      "required_facts": [["30 calendar days", "30 days", "thirty days"], ["25"]]
+    },
+    {
+      "id": "SM-07",
+      "question": "What is the maximum hotel cost per night that will be reimbursed on a business trip?",
+      "answerable": true,
+      "expected_policy_id": "HR-003",
+      "expected_answer": "Up to USD 180 per night.",
+      "required_facts": [["180"]]
+    },
+    {
+      "id": "SM-08",
+      "question": "What is the minimum password length, and how often must passwords be changed?",
+      "answerable": true,
+      "expected_policy_id": "IT-001",
+      "expected_answer": "At least 14 characters; changed every 180 days (and immediately if compromise is suspected).",
+      "required_facts": [["14"], ["180 days"]]
+    },
+    {
+      "id": "SM-09",
+      "question": "What happens to my account if I enter the wrong password five times in a row?",
+      "answerable": true,
+      "expected_policy_id": "IT-001",
+      "expected_answer": "The account is locked for 15 minutes; if locked again within 24 hours it stays locked until the IT Service Desk unlocks it.",
+      "required_facts": [["15 minutes", "15-minute", "fifteen minutes"]]
+    },
+    {
+      "id": "SM-10",
+      "question": "How quickly must I report a lost or stolen company laptop?",
+      "answerable": true,
+      "expected_policy_id": "IT-002",
+      "expected_answer": "Within 24 hours of discovering the loss (plus a police report for theft).",
+      "required_facts": [["24 hours", "24-hour", "twenty-four hours"]]
+    },
+    {
+      "id": "SM-11",
+      "question": "When I leave the company, how long do I have to return my company equipment?",
+      "answerable": true,
+      "expected_policy_id": "IT-002",
+      "expected_answer": "Within 5 working days of the last working day.",
+      "required_facts": [["5 working days", "five working days"]]
+    },
+    {
+      "id": "SM-12",
+      "question": "Which mandatory training courses must new employees complete, and within how many days of joining?",
+      "answerable": true,
+      "expected_policy_id": "HR-004",
+      "expected_answer": "Security Awareness Training and Code of Conduct Training, within 14 calendar days of joining.",
+      "required_facts": [["security awareness"], ["code of conduct"], ["14"]]
+    },
+    {
+      "id": "SM-13",
+      "question": "Does Brightlake Systems provide pet insurance for employees' pets?",
+      "answerable": false,
+      "expected_policy_id": null,
+      "expected_answer": "Refusal: no policy document covers pet insurance.",
+      "required_facts": []
+    },
+    {
+      "id": "SM-14",
+      "question": "How many stock options are granted to newly hired software engineers?",
+      "answerable": false,
+      "expected_policy_id": null,
+      "expected_answer": "Refusal: no policy document covers stock options or equity.",
+      "required_facts": []
+    },
+    {
+      "id": "SM-15",
+      "question": "What is the maximum amount the company reimburses for a gym membership?",
+      "answerable": false,
+      "expected_policy_id": null,
+      "expected_answer": "Refusal: the reimbursement policy does not mention gym memberships (near-topic distractor).",
+      "required_facts": []
+    }
+  ]
+}

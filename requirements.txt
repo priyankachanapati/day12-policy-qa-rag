@@ -1,0 +1,8 @@
+# Runtime
+chromadb==1.5.9        # vector database + local ONNX all-MiniLM-L6-v2 embedding model
+groq==1.7.0            # LLM API client
+python-dotenv==1.2.4   # loads .env
+
+# Development / testing
+pytest==9.2.0
+ruff==0.17.6

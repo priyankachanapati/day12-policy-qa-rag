@@ -1,0 +1,21 @@
+Offline citation-support re-check of results/smoke-results-run1.json (no API calls; saved responses unchanged)
+Chunks rebuilt locally: 22 (chunk_size=800, overlap=150)
+Original verdicts in file: 15/15 correct
+
+SM-01: cited=['HR-001-CH01'] facts_supported_by_cited_chunks=[True] -> OK
+SM-02: cited=['HR-001-CH02'] facts_supported_by_cited_chunks=[True, True] -> OK
+SM-03: cited=['HR-001-CH03'] facts_supported_by_cited_chunks=[True] -> OK
+SM-04: cited=['HR-002-CH02'] facts_supported_by_cited_chunks=[True] -> OK
+SM-05: cited=['HR-002-CH03'] facts_supported_by_cited_chunks=[True, True] -> OK
+SM-06: cited=['HR-003-CH01', 'HR-003-CH02'] facts_supported_by_cited_chunks=[True, True] -> OK
+SM-07: cited=['HR-003-CH03'] facts_supported_by_cited_chunks=[True] -> OK
+SM-08: cited=['IT-001-CH01'] facts_supported_by_cited_chunks=[True, True] -> OK
+SM-09: cited=['IT-001-CH02'] facts_supported_by_cited_chunks=[True] -> OK
+SM-10: cited=['IT-002-CH03'] facts_supported_by_cited_chunks=[True] -> OK
+SM-11: cited=['IT-002-CH03'] facts_supported_by_cited_chunks=[True] -> OK
+SM-12: cited=['HR-004-CH02'] facts_supported_by_cited_chunks=[True, True, True] -> OK
+SM-13: unanswerable - citation support not applicable (citations: [])
+SM-14: unanswerable - citation support not applicable (citations: [])
+SM-15: unanswerable - citation support not applicable (citations: [])
+
+Answerable answers whose citations support every required fact: 12/12

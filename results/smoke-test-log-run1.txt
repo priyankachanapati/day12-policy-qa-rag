@@ -1,0 +1,206 @@
+==============================================================================
+POLICY Q&A RAG v1 - 15-QUESTION SMOKE TEST
+==============================================================================
+Run started (UTC) : 2026-11-26T10:09:00+00:00
+Python            : 3.12.16 on Darwin arm64
+LLM               : openai/gpt-oss-120b via Groq API (temperature=0.0)
+Top-k             : 4 | relevance threshold: similarity >= 0.25
+Questions         : 15 (12 answerable, 3 unanswerable)
+Correctness criteria (defined before the run):
+  Answerable  : status=answered AND all required facts present AND >=1 citation AND all
+                citations valid (retrieved chunk, matching policy ID) AND cites expected policy
+  Unanswerable: mandated refusal AND no citations
+
+=== Ingestion summary ===
+  Source documents : 6
+  Chunks generated : 22
+    HR-001: 5 chunks
+    HR-002: 4 chunks
+    HR-003: 4 chunks
+    HR-004: 3 chunks
+    IT-001: 3 chunks
+    IT-002: 3 chunks
+  Chunking config  : chunk_size=800 chars, overlap=150 chars (paragraph-aware)
+  Embedding model  : all-MiniLM-L6-v2 (ONNX, run locally via ChromaDB) (384 dimensions)
+  Vector database  : ChromaDB (persistent, collection 'policy_chunks', cosine distance)
+  Chunks stored    : 22
+
+------------------------------------------------------------------------------
+[SM-01] ANSWERABLE | expected source: HR-001
+Question : How many days of paid annual leave do full-time employees receive each year?
+Expected : 20 days of paid annual leave per calendar year.
+Retrieved: HR-001-CH02(0.652), HR-001-CH01(0.560), HR-001-CH03(0.551), HR-001-CH05(0.529)
+Status   : answered
+Response : Full-time employees receive 20 days of paid annual leave per calendar year. [Source: HR-001, Chunk: HR-001-CH01]
+Citations: valid=['[Source: HR-001, Chunk: HR-001-CH01]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-02] ANSWERABLE | expected source: HR-001
+Question : How many unused annual leave days can be carried forward, and by when must they be used?
+Expected : Up to 5 days; they must be used by 31 March of the following year.
+Retrieved: HR-001-CH02(0.779), HR-001-CH05(0.625), HR-001-CH03(0.572), HR-001-CH04(0.551)
+Status   : answered
+Response : A maximum of 5 unused annual leave days may be carried forward, and they must be used by 31 March of the following year [Source: HR-001, Chunk: HR-001-CH02].
+Citations: valid=['[Source: HR-001, Chunk: HR-001-CH02]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True, True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-03] ANSWERABLE | expected source: HR-001
+Question : When do I need a medical certificate for sick leave?
+Expected : For any sick absence longer than 2 consecutive working days.
+Retrieved: HR-001-CH03(0.582), HR-001-CH05(0.388), HR-001-CH02(0.376), HR-001-CH04(0.375)
+Status   : answered
+Response : A medical certificate is required for any sick absence that lasts longer than 2 consecutive working days. [Source: HR-001, Chunk: HR-001-CH03]
+Citations: valid=['[Source: HR-001, Chunk: HR-001-CH03]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-04] ANSWERABLE | expected source: HR-002
+Question : How many days per week can an eligible employee work from home?
+Expected : Up to 2 days per week (after completing probation).
+Retrieved: HR-002-CH02(0.763), HR-002-CH03(0.581), HR-002-CH04(0.511), HR-002-CH01(0.456)
+Status   : answered
+Response : Eligible employees may work from home for up to 2 days per week. [Source: HR-002, Chunk: HR-002-CH02]
+Citations: valid=['[Source: HR-002, Chunk: HR-002-CH02]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-05] ANSWERABLE | expected source: HR-002
+Question : What are the core hours I must be available when working from home?
+Expected : 10:00 to 16:00 local time.
+Retrieved: HR-002-CH03(0.691), HR-002-CH02(0.587), HR-002-CH04(0.457), HR-002-CH01(0.355)
+Status   : answered
+Response : Employees working from home must be available online between 10:00 and 16:00 local time. [Source: HR-002, Chunk: HR-002-CH03]
+Citations: valid=['[Source: HR-002, Chunk: HR-002-CH03]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True, True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-06] ANSWERABLE | expected source: HR-003
+Question : How long do I have to submit an expense claim, and when is a receipt required?
+Expected : Within 30 calendar days of the expense; an itemised receipt is required for each expense above USD 25.
+Retrieved: HR-003-CH02(0.497), HR-003-CH01(0.454), IT-002-CH03(0.376), HR-003-CH03(0.373)
+Status   : answered
+Response : Expense claims must be submitted through the Expense Portal within 30 calendar days of the expense date, otherwise they are rejected unless the Finance Controller approves a late submission. [Source: HR-003, Chunk: HR-003-CH01] An itemised receipt is required for each expense over USD 25, while expenses of USD 25 or less may be claimed without a receipt if a description is provided. [Source: HR-003, Chunk: HR-003-CH02]
+Citations: valid=['[Source: HR-003, Chunk: HR-003-CH01]', '[Source: HR-003, Chunk: HR-003-CH02]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True, True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-07] ANSWERABLE | expected source: HR-003
+Question : What is the maximum hotel cost per night that will be reimbursed on a business trip?
+Expected : Up to USD 180 per night.
+Retrieved: HR-003-CH03(0.657), HR-003-CH02(0.647), HR-003-CH04(0.356), HR-003-CH01(0.311)
+Status   : answered
+Response : Hotel accommodation is reimbursed up to USD 180 per night. [Source: HR-003, Chunk: HR-003-CH03]
+Citations: valid=['[Source: HR-003, Chunk: HR-003-CH03]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-08] ANSWERABLE | expected source: IT-001
+Question : What is the minimum password length, and how often must passwords be changed?
+Expected : At least 14 characters; changed every 180 days (and immediately if compromise is suspected).
+Retrieved: IT-001-CH01(0.603), IT-001-CH02(0.535), IT-001-CH03(0.454), HR-001-CH02(0.263)
+Status   : answered
+Response : Passwords must be at least 14 characters long. [Source: IT-001, Chunk: IT-001-CH01] Passwords must be changed every 180 days. [Source: IT-001, Chunk: IT-001-CH01]
+Citations: valid=['[Source: IT-001, Chunk: IT-001-CH01]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True, True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-09] ANSWERABLE | expected source: IT-001
+Question : What happens to my account if I enter the wrong password five times in a row?
+Expected : The account is locked for 15 minutes; if locked again within 24 hours it stays locked until the IT Service Desk unlocks it.
+Retrieved: IT-001-CH02(0.518), IT-001-CH03(0.468), IT-001-CH01(0.412), IT-002-CH03(0.166)
+Status   : answered
+Response : After five consecutive failed sign‐in attempts, the account is automatically locked for 15 minutes. [Source: IT-001, Chunk: IT-001-CH02]
+Citations: valid=['[Source: IT-001, Chunk: IT-001-CH02]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-10] ANSWERABLE | expected source: IT-002
+Question : How quickly must I report a lost or stolen company laptop?
+Expected : Within 24 hours of discovering the loss (plus a police report for theft).
+Retrieved: IT-002-CH03(0.575), IT-001-CH03(0.464), IT-002-CH01(0.382), IT-002-CH02(0.377)
+Status   : answered
+Response : Lost or stolen equipment must be reported to the IT Service Desk within 24 hours of discovering the loss. [Source: IT-002, Chunk: IT-002-CH03]
+Citations: valid=['[Source: IT-002, Chunk: IT-002-CH03]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-11] ANSWERABLE | expected source: IT-002
+Question : When I leave the company, how long do I have to return my company equipment?
+Expected : Within 5 working days of the last working day.
+Retrieved: IT-002-CH03(0.578), HR-001-CH02(0.455), HR-001-CH05(0.423), HR-001-CH03(0.363)
+Status   : answered
+Response : When you leave Brightlake Systems, you must return all company equipment within 5 working days of your last working day. [Source: IT-002, Chunk: IT-002-CH03]
+Citations: valid=['[Source: IT-002, Chunk: IT-002-CH03]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-12] ANSWERABLE | expected source: HR-004
+Question : Which mandatory training courses must new employees complete, and within how many days of joining?
+Expected : Security Awareness Training and Code of Conduct Training, within 14 calendar days of joining.
+Retrieved: HR-004-CH02(0.682), HR-004-CH03(0.541), HR-004-CH01(0.408), HR-001-CH02(0.382)
+Status   : answered
+Response : New employees must complete Security Awareness Training and Code of Conduct Training within 14 calendar days of joining. [Source: HR-004, Chunk: HR-004-CH02]
+Citations: valid=['[Source: HR-004, Chunk: HR-004-CH02]'] invalid=[] malformed=[]
+Checks   : retrieval_hit=True facts=[True, True, True] citations_ok=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-13] UNANSWERABLE | expected source: none
+Question : Does Brightlake Systems provide pet insurance for employees' pets?
+Expected : Refusal: no policy document covers pet insurance.
+Retrieved: HR-003-CH01(0.520), HR-001-CH01(0.479), HR-002-CH01(0.475), HR-003-CH04(0.442)
+Status   : refused
+Response : The policy documents do not contain enough information to answer this question.
+Citations: valid=[] invalid=[] malformed=[]
+Checks   : refusal_correct=True no_citations=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-14] UNANSWERABLE | expected source: none
+Question : How many stock options are granted to newly hired software engineers?
+Expected : Refusal: no policy document covers stock options or equity.
+Retrieved: HR-004-CH02(0.300), IT-002-CH02(0.248), HR-004-CH01(0.229), HR-001-CH01(0.194)
+Status   : refused
+Response : The policy documents do not contain enough information to answer this question.
+Citations: valid=[] invalid=[] malformed=[]
+Checks   : refusal_correct=True no_citations=True
+Verdict  : CORRECT
+------------------------------------------------------------------------------
+[SM-15] UNANSWERABLE | expected source: none
+Question : What is the maximum amount the company reimburses for a gym membership?
+Expected : Refusal: the reimbursement policy does not mention gym memberships (near-topic distractor).
+Retrieved: HR-003-CH02(0.506), HR-003-CH03(0.491), HR-003-CH04(0.424), HR-003-CH01(0.374)
+Status   : refused
+Response : The policy documents do not contain enough information to answer this question.
+Citations: valid=[] invalid=[] malformed=[]
+Checks   : refusal_correct=True no_citations=True
+Verdict  : CORRECT
+
+==============================================================================
+SUMMARY
+==============================================================================
+ID     Type          Status                      Verdict   
+SM-01  answerable    answered                    CORRECT   
+SM-02  answerable    answered                    CORRECT   
+SM-03  answerable    answered                    CORRECT   
+SM-04  answerable    answered                    CORRECT   
+SM-05  answerable    answered                    CORRECT   
+SM-06  answerable    answered                    CORRECT   
+SM-07  answerable    answered                    CORRECT   
+SM-08  answerable    answered                    CORRECT   
+SM-09  answerable    answered                    CORRECT   
+SM-10  answerable    answered                    CORRECT   
+SM-11  answerable    answered                    CORRECT   
+SM-12  answerable    answered                    CORRECT   
+SM-13  unanswerable  refused                     CORRECT   
+SM-14  unanswerable  refused                     CORRECT   
+SM-15  unanswerable  refused                     CORRECT   
+
+Correct answers          : 15/15
+Answerable correct       : 12/12
+Unanswerable refused     : 3/3
+Retrieval hit (answerable): 12/12
+Answers w/ valid citations: 12/12
+Invalid citations total  : 0
+Pass threshold           : 11/15 -> PASS
+Run finished (UTC)       : 2026-11-26T10:10:17+00:00 (77s)

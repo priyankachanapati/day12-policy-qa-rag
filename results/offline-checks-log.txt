@@ -1,0 +1,65 @@
+=== Offline quality checks - 2026-11-26T10:45:12Z ===
+Live Groq integration tests deselected (-m 'not integration'): daily API quota exhausted; no API calls made.
+
+$ python -m compileall -q src tests scripts
+compile: OK
+
+$ ruff check src tests scripts
+All checks passed!
+
+$ ruff format --check src tests scripts
+20 files already formatted
+
+$ python -m pytest -v -m 'not integration'
+============================= test session starts ==============================
+platform darwin -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0 -- /Users/vamsi/Documents/AI-Engineering-Training/Day-12/01-Code/policy-qa-rag/.venv/bin/python
+rootdir: /Users/vamsi/Documents/AI-Engineering-Training/Day-12/01-Code/policy-qa-rag
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.16.0
+collecting ... collected 44 items / 2 deselected / 42 selected
+
+tests/test_citations.py::test_extracts_unique_citations_in_order PASSED  [  2%]
+tests/test_citations.py::test_valid_citation_passes PASSED               [  4%]
+tests/test_citations.py::test_fabricated_chunk_id_is_invalid PASSED      [  7%]
+tests/test_citations.py::test_policy_chunk_mismatch_is_invalid PASSED    [  9%]
+tests/test_citations.py::test_malformed_citation_detected PASSED         [ 11%]
+tests/test_citations.py::test_answer_without_citations_is_not_valid PASSED [ 14%]
+tests/test_citations.py::test_pipeline_withholds_answer_with_fabricated_citation PASSED [ 16%]
+tests/test_citations.py::test_pipeline_accepts_answer_citing_retrieved_chunk PASSED [ 19%]
+tests/test_citations.py::test_smoke_eval_rejects_citation_that_does_not_support_fact PASSED [ 21%]
+tests/test_generation_retry.py::test_long_retry_after_fails_fast_without_sleeping PASSED [ 23%]
+tests/test_generation_retry.py::test_short_retry_after_waits_then_succeeds PASSED [ 26%]
+tests/test_ingestion.py::test_loads_all_six_policies_with_metadata PASSED [ 28%]
+tests/test_ingestion.py::test_chunks_have_unique_ids_and_complete_metadata PASSED [ 30%]
+tests/test_ingestion.py::test_chunks_respect_size_limit PASSED           [ 33%]
+tests/test_ingestion.py::test_no_chunk_ends_with_a_dangling_heading PASSED [ 35%]
+tests/test_ingestion.py::test_consecutive_chunks_overlap PASSED          [ 38%]
+tests/test_ingestion.py::test_every_fact_survives_chunking PASSED        [ 40%]
+tests/test_ingestion.py::test_invalid_chunk_config_rejected[0-0] PASSED  [ 42%]
+tests/test_ingestion.py::test_invalid_chunk_config_rejected[100-100] PASSED [ 45%]
+tests/test_ingestion.py::test_invalid_chunk_config_rejected[100--1] PASSED [ 47%]
+tests/test_ingestion.py::test_front_matter_requires_fields PASSED        [ 50%]
+tests/test_refusal.py::test_no_relevant_context_refuses_without_calling_llm PASSED [ 52%]
+tests/test_refusal.py::test_llm_refusal_is_reported_as_refusal PASSED    [ 54%]
+tests/test_refusal.py::test_is_refusal_tolerates_punctuation_but_not_other_text PASSED [ 57%]
+tests/test_refusal.py::test_llm_text_normalisation_folds_unicode_spaces PASSED [ 59%]
+tests/test_refusal.py::test_system_prompt_enforces_rules PASSED          [ 61%]
+tests/test_refusal.py::test_user_prompt_contains_chunk_ids_and_isolates_question PASSED [ 64%]
+tests/test_retrieval.py::test_store_contains_all_chunks PASSED           [ 66%]
+tests/test_retrieval.py::test_reingestion_does_not_duplicate PASSED      [ 69%]
+tests/test_retrieval.py::test_top_result_comes_from_expected_policy[How many days of annual leave do I get?-HR-001] PASSED [ 71%]
+tests/test_retrieval.py::test_top_result_comes_from_expected_policy[What are the core hours when working from home?-HR-002] PASSED [ 73%]
+tests/test_retrieval.py::test_top_result_comes_from_expected_policy[What is the hotel limit per night on business travel?-HR-003] PASSED [ 76%]
+tests/test_retrieval.py::test_top_result_comes_from_expected_policy[What is the probation period for new employees?-HR-004] PASSED [ 78%]
+tests/test_retrieval.py::test_top_result_comes_from_expected_policy[How long must my password be?-IT-001] PASSED [ 80%]
+tests/test_retrieval.py::test_top_result_comes_from_expected_policy[What should I do if my laptop is stolen?-IT-002] PASSED [ 83%]
+tests/test_retrieval.py::test_top_k_scores_and_metadata PASSED           [ 85%]
+tests/test_retrieval.py::test_irrelevant_question_scores_lower_than_relevant PASSED [ 88%]
+tests/test_retrieval.py::test_empty_question_rejected PASSED             [ 90%]
+tests/test_smoke.py::test_exactly_15_questions_with_3_unanswerable PASSED [ 92%]
+tests/test_smoke.py::test_answerable_questions_cover_all_six_policies PASSED [ 95%]
+tests/test_smoke.py::test_answerable_questions_define_required_facts PASSED [ 97%]
+tests/test_smoke.py::test_required_facts_actually_exist_in_expected_policy PASSED [100%]
+
+======================= 42 passed, 2 deselected in 1.53s =======================

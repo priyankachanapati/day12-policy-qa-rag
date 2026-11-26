@@ -1,0 +1,17 @@
+[project]
+name = "policy-qa-rag"
+version = "1.0.0"
+description = "Policy Q&A RAG v1 - cited retrieval-augmented assistant over synthetic HR/IT policies"
+requires-python = ">=3.10"
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+# Line length is enforced by `ruff format`; long natural-language prompt lines are intentional.
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]

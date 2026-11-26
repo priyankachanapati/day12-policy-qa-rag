@@ -1,0 +1,529 @@
+{
+  "started_utc": "2026-11-26T10:11:57+00:00",
+  "llm_model": "openai/gpt-oss-120b",
+  "top_k": 4,
+  "min_similarity": 0.25,
+  "correct": 9,
+  "total": 15,
+  "results": [
+    {
+      "id": "SM-01",
+      "question": "How many days of paid annual leave do full-time employees receive each year?",
+      "answerable": true,
+      "expected_policy_id": "HR-001",
+      "expected_answer": "20 days of paid annual leave per calendar year.",
+      "status": "answered",
+      "response": "Full-time employees receive 20 days of paid annual leave per calendar year. [Source: HR-001, Chunk: HR-001-CH01]",
+      "raw_llm_answer": "Full-time employees receive 20 days of paid annual leave per calendar year. [Source: HR-001, Chunk: HR-001-CH01]",
+      "retrieved": [
+        {
+          "chunk_id": "HR-001-CH02",
+          "policy_id": "HR-001",
+          "similarity": 0.6515,
+          "distance": 0.3485
+        },
+        {
+          "chunk_id": "HR-001-CH01",
+          "policy_id": "HR-001",
+          "similarity": 0.56,
+          "distance": 0.44
+        },
+        {
+          "chunk_id": "HR-001-CH03",
+          "policy_id": "HR-001",
+          "similarity": 0.5509,
+          "distance": 0.4491
+        },
+        {
+          "chunk_id": "HR-001-CH05",
+          "policy_id": "HR-001",
+          "similarity": 0.5288,
+          "distance": 0.4712
+        }
+      ],
+      "valid_citations": [
+        "[Source: HR-001, Chunk: HR-001-CH01]"
+      ],
+      "invalid_citations": [],
+      "malformed_citations": [],
+      "retrieval_hit": true,
+      "facts_found": [
+        true
+      ],
+      "citations_ok": true,
+      "citation_support": [
+        true
+      ],
+      "refusal_ok": null,
+      "correct": true,
+      "reasons": []
+    },
+    {
+      "id": "SM-02",
+      "question": "How many unused annual leave days can be carried forward, and by when must they be used?",
+      "answerable": true,
+      "expected_policy_id": "HR-001",
+      "expected_answer": "Up to 5 days; they must be used by 31 March of the following year.",
+      "status": "answered",
+      "response": "A maximum of 5 unused annual leave days may be carried forward, and they must be used by 31 March of the following year [Source: HR-001, Chunk: HR-001-CH02].",
+      "raw_llm_answer": "A maximum of 5 unused annual leave days may be carried forward, and they must be used by 31 March of the following year [Source: HR-001, Chunk: HR-001-CH02].",
+      "retrieved": [
+        {
+          "chunk_id": "HR-001-CH02",
+          "policy_id": "HR-001",
+          "similarity": 0.7786,
+          "distance": 0.2214
+        },
+        {
+          "chunk_id": "HR-001-CH05",
+          "policy_id": "HR-001",
+          "similarity": 0.6246,
+          "distance": 0.3754
+        },
+        {
+          "chunk_id": "HR-001-CH03",
+          "policy_id": "HR-001",
+          "similarity": 0.5722,
+          "distance": 0.4278
+        },
+        {
+          "chunk_id": "HR-001-CH04",
+          "policy_id": "HR-001",
+          "similarity": 0.5509,
+          "distance": 0.4491
+        }
+      ],
+      "valid_citations": [
+        "[Source: HR-001, Chunk: HR-001-CH02]"
+      ],
+      "invalid_citations": [],
+      "malformed_citations": [],
+      "retrieval_hit": true,
+      "facts_found": [
+        true,
+        true
+      ],
+      "citations_ok": true,
+      "citation_support": [
+        true,
+        true
+      ],
+      "refusal_ok": null,
+      "correct": true,
+      "reasons": []
+    },
+    {
+      "id": "SM-03",
+      "question": "When do I need a medical certificate for sick leave?",
+      "answerable": true,
+      "expected_policy_id": "HR-001",
+      "expected_answer": "For any sick absence longer than 2 consecutive working days.",
+      "status": "answered",
+      "response": "A medical certificate is required for any sick absence that lasts longer than 2 consecutive working days. [Source: HR-001, Chunk: HR-001-CH03]",
+      "raw_llm_answer": "A medical certificate is required for any sick absence that lasts longer than 2 consecutive working days. [Source: HR-001, Chunk: HR-001-CH03]",
+      "retrieved": [
+        {
+          "chunk_id": "HR-001-CH03",
+          "policy_id": "HR-001",
+          "similarity": 0.5821,
+          "distance": 0.4179
+        },
+        {
+          "chunk_id": "HR-001-CH05",
+          "policy_id": "HR-001",
+          "similarity": 0.3879,
+          "distance": 0.6121
+        },
+        {
+          "chunk_id": "HR-001-CH02",
+          "policy_id": "HR-001",
+          "similarity": 0.3764,
+          "distance": 0.6236
+        },
+        {
+          "chunk_id": "HR-001-CH04",
+          "policy_id": "HR-001",
+          "similarity": 0.3754,
+          "distance": 0.6246
+        }
+      ],
+      "valid_citations": [
+        "[Source: HR-001, Chunk: HR-001-CH03]"
+      ],
+      "invalid_citations": [],
+      "malformed_citations": [],
+      "retrieval_hit": true,
+      "facts_found": [
+        true
+      ],
+      "citations_ok": true,
+      "citation_support": [
+        true
+      ],
+      "refusal_ok": null,
+      "correct": true,
+      "reasons": []
+    },
+    {
+      "id": "SM-04",
+      "question": "How many days per week can an eligible employee work from home?",
+      "answerable": true,
+      "expected_policy_id": "HR-002",
+      "expected_answer": "Up to 2 days per week (after completing probation).",
+      "status": "answered",
+      "response": "Eligible employees may work from home for up to 2 days per week. [Source: HR-002, Chunk: HR-002-CH02]",
+      "raw_llm_answer": "Eligible employees may work from home for up to 2 days per week. [Source: HR-002, Chunk: HR-002-CH02]",
+      "retrieved": [
+        {
+          "chunk_id": "HR-002-CH02",
+          "policy_id": "HR-002",
+          "similarity": 0.7633,
+          "distance": 0.2367
+        },
+        {
+          "chunk_id": "HR-002-CH03",
+          "policy_id": "HR-002",
+          "similarity": 0.5807,
+          "distance": 0.4193
+        },
+        {
+          "chunk_id": "HR-002-CH04",
+          "policy_id": "HR-002",
+          "similarity": 0.511,
+          "distance": 0.489
+        },
+        {
+          "chunk_id": "HR-002-CH01",
+          "policy_id": "HR-002",
+          "similarity": 0.4557,
+          "distance": 0.5443
+        }
+      ],
+      "valid_citations": [
+        "[Source: HR-002, Chunk: HR-002-CH02]"
+      ],
+      "invalid_citations": [],
+      "malformed_citations": [],
+      "retrieval_hit": true,
+      "facts_found": [
+        true
+      ],
+      "citations_ok": true,
+      "citation_support": [
+        true
+      ],
+      "refusal_ok": null,
+      "correct": true,
+      "reasons": []
+    },
+    {
+      "id": "SM-05",
+      "question": "What are the core hours I must be available when working from home?",
+      "answerable": true,
+      "expected_policy_id": "HR-002",
+      "expected_answer": "10:00 to 16:00 local time.",
+      "status": "answered",
+      "response": "Employees working from home must be available online between 10:00 and 16:00 local time. [Source: HR-002, Chunk: HR-002-CH03]",
+      "raw_llm_answer": "Employees working from home must be available online between 10:00 and 16:00 local time. [Source: HR-002, Chunk: HR-002-CH03]",
+      "retrieved": [
+        {
+          "chunk_id": "HR-002-CH03",
+          "policy_id": "HR-002",
+          "similarity": 0.6912,
+          "distance": 0.3088
+        },
+        {
+          "chunk_id": "HR-002-CH02",
+          "policy_id": "HR-002",
+          "similarity": 0.5875,
+          "distance": 0.4125
+        },
+        {
+          "chunk_id": "HR-002-CH04",
+          "policy_id": "HR-002",
+          "similarity": 0.4568,
+          "distance": 0.5432
+        },
+        {
+          "chunk_id": "HR-002-CH01",
+          "policy_id": "HR-002",
+          "similarity": 0.3553,
+          "distance": 0.6447
+        }
+      ],
+      "valid_citations": [
+        "[Source: HR-002, Chunk: HR-002-CH03]"
+      ],
+      "invalid_citations": [],
+      "malformed_citations": [],
+      "retrieval_hit": true,
+      "facts_found": [
+        true,
+        true
+      ],
+      "citations_ok": true,
+      "citation_support": [
+        true,
+        true
+      ],
+      "refusal_ok": null,
+      "correct": true,
+      "reasons": []
+    },
+    {
+      "id": "SM-06",
+      "question": "How long do I have to submit an expense claim, and when is a receipt required?",
+      "answerable": true,
+      "expected_policy_id": "HR-003",
+      "expected_answer": "Within 30 calendar days of the expense; an itemised receipt is required for each expense above USD 25.",
+      "status": "answered",
+      "response": "Expense claims must be submitted through the Expense Portal within 30 calendar days of the date the expense was incurred [Source: HR-003, Chunk: HR-003-CH01]. An itemised receipt is required for every individual expense above USD 25; expenses of USD 25 or less may be claimed without a receipt if a description of the expense is entered [Source: HR-003, Chunk: HR-003-CH02].",
+      "raw_llm_answer": "Expense claims must be submitted through the Expense Portal within 30 calendar days of the date the expense was incurred [Source: HR-003, Chunk: HR-003-CH01]. An itemised receipt is required for every individual expense above USD 25; expenses of USD 25 or less may be claimed without a receipt if a description of the expense is entered [Source: HR-003, Chunk: HR-003-CH02].",
+      "retrieved": [
+        {
+          "chunk_id": "HR-003-CH02",
+          "policy_id": "HR-003",
+          "similarity": 0.4973,
+          "distance": 0.5027
+        },
+        {
+          "chunk_id": "HR-003-CH01",
+          "policy_id": "HR-003",
+          "similarity": 0.4545,
+          "distance": 0.5455
+        },
+        {
+          "chunk_id": "IT-002-CH03",
+          "policy_id": "IT-002",
+          "similarity": 0.3765,
+          "distance": 0.6235
+        },
+        {
+          "chunk_id": "HR-003-CH03",
+          "policy_id": "HR-003",
+          "similarity": 0.3734,
+          "distance": 0.6266
+        }
+      ],
+      "valid_citations": [
+        "[Source: HR-003, Chunk: HR-003-CH01]",
+        "[Source: HR-003, Chunk: HR-003-CH02]"
+      ],
+      "invalid_citations": [],
+      "malformed_citations": [],
+      "retrieval_hit": true,
+      "facts_found": [
+        true,
+        true
+      ],
+      "citations_ok": true,
+      "citation_support": [
+        true,
+        true
+      ],
+      "refusal_ok": null,
+      "correct": true,
+      "reasons": []
+    },
+    {
+      "id": "SM-07",
+      "question": "What is the maximum hotel cost per night that will be reimbursed on a business trip?",
+      "answerable": true,
+      "expected_policy_id": "HR-003",
+      "expected_answer": "Up to USD 180 per night.",
+      "status": "answered",
+      "response": "Hotel accommodation is reimbursed up to USD 180 per night. [Source: HR-003, Chunk: HR-003-CH03]",
+      "raw_llm_answer": "Hotel accommodation is reimbursed up to USD 180 per night. [Source: HR-003, Chunk: HR-003-CH03]",
+      "retrieved": [
+        {
+          "chunk_id": "HR-003-CH03",
+          "policy_id": "HR-003",
+          "similarity": 0.6574,
+          "distance": 0.3426
+        },
+        {
+          "chunk_id": "HR-003-CH02",
+          "policy_id": "HR-003",
+          "similarity": 0.6468,
+          "distance": 0.3532
+        },
+        {
+          "chunk_id": "HR-003-CH04",
+          "policy_id": "HR-003",
+          "similarity": 0.356,
+          "distance": 0.644
+        },
+        {
+          "chunk_id": "HR-003-CH01",
+          "policy_id": "HR-003",
+          "similarity": 0.3113,
+          "distance": 0.6887
+        }
+      ],
+      "valid_citations": [
+        "[Source: HR-003, Chunk: HR-003-CH03]"
+      ],
+      "invalid_citations": [],
+      "malformed_citations": [],
+      "retrieval_hit": true,
+      "facts_found": [
+        true
+      ],
+      "citations_ok": true,
+      "citation_support": [
+        true
+      ],
+      "refusal_ok": null,
+      "correct": true,
+      "reasons": []
+    },
+    {
+      "id": "SM-08",
+      "question": "What is the minimum password length, and how often must passwords be changed?",
+      "answerable": true,
+      "expected_policy_id": "IT-001",
+      "expected_answer": "At least 14 characters; changed every 180 days (and immediately if compromise is suspected).",
+      "status": "answered",
+      "response": "Passwords must be at least 14 characters long. [Source: IT-001, Chunk: IT-001-CH01] Passwords must be changed every 180 days, and immediately if there is any suspicion that a password has been compromised. [Source: IT-001, Chunk: IT-001-CH01]",
+      "raw_llm_answer": "Passwords must be at least 14 characters long. [Source: IT-001, Chunk: IT-001-CH01] Passwords must be changed every 180 days, and immediately if there is any suspicion that a password has been compromised. [Source: IT-001, Chunk: IT-001-CH01]",
+      "retrieved": [
+        {
+          "chunk_id": "IT-001-CH01",
+          "policy_id": "IT-001",
+          "similarity": 0.6026,
+          "distance": 0.3974
+        },
+        {
+          "chunk_id": "IT-001-CH02",
+          "policy_id": "IT-001",
+          "similarity": 0.5349,
+          "distance": 0.4651
+        },
+        {
+          "chunk_id": "IT-001-CH03",
+          "policy_id": "IT-001",
+          "similarity": 0.4539,
+          "distance": 0.5461
+        },
+        {
+          "chunk_id": "HR-001-CH02",
+          "policy_id": "HR-001",
+          "similarity": 0.2629,
+          "distance": 0.7371
+        }
+      ],
+      "valid_citations": [
+        "[Source: IT-001, Chunk: IT-001-CH01]"
+      ],
+      "invalid_citations": [],
+      "malformed_citations": [],
+      "retrieval_hit": true,
+      "facts_found": [
+        true,
+        true
+      ],
+      "citations_ok": true,
+      "citation_support": [
+        true,
+        true
+      ],
+      "refusal_ok": null,
+      "correct": true,
+      "reasons": []
+    },
+    {
+      "id": "SM-09",
+      "question": "What happens to my account if I enter the wrong password five times in a row?",
+      "answerable": true,
+      "expected_policy_id": "IT-001",
+      "expected_answer": "The account is locked for 15 minutes; if locked again within 24 hours it stays locked until the IT Service Desk unlocks it.",
+      "status": "answered",
+      "response": "After five consecutive failed sign\u2010in attempts, the account is automatically locked for 15 minutes. [Source: IT-001, Chunk: IT-001-CH02]",
+      "raw_llm_answer": "After five consecutive failed sign\u2010in attempts, the account is automatically locked for 15 minutes. [Source: IT-001, Chunk: IT-001-CH02]",
+      "retrieved": [
+        {
+          "chunk_id": "IT-001-CH02",
+          "policy_id": "IT-001",
+          "similarity": 0.5183,
+          "distance": 0.4817
+        },
+        {
+          "chunk_id": "IT-001-CH03",
+          "policy_id": "IT-001",
+          "similarity": 0.468,
+          "distance": 0.532
+        },
+        {
+          "chunk_id": "IT-001-CH01",
+          "policy_id": "IT-001",
+          "similarity": 0.4118,
+          "distance": 0.5882
+        },
+        {
+          "chunk_id": "IT-002-CH03",
+          "policy_id": "IT-002",
+          "similarity": 0.166,
+          "distance": 0.834
+        }
+      ],
+      "valid_citations": [
+        "[Source: IT-001, Chunk: IT-001-CH02]"
+      ],
+      "invalid_citations": [],
+      "malformed_citations": [],
+      "retrieval_hit": true,
+      "facts_found": [
+        true
+      ],
+      "citations_ok": true,
+      "citation_support": [
+        true
+      ],
+      "refusal_ok": null,
+      "correct": true,
+      "reasons": []
+    },
+    {
+      "id": "SM-10",
+      "question": "How quickly must I report a lost or stolen company laptop?",
+      "answerable": true,
+      "error": "Groq rate limit exceeded after retries; try again later.",
+      "correct": false
+    },
+    {
+      "id": "SM-11",
+      "question": "When I leave the company, how long do I have to return my company equipment?",
+      "answerable": true,
+      "error": "Groq rate limit exceeded after retries; try again later.",
+      "correct": false
+    },
+    {
+      "id": "SM-12",
+      "question": "Which mandatory training courses must new employees complete, and within how many days of joining?",
+      "answerable": true,
+      "error": "Groq rate limit exceeded after retries; try again later.",
+      "correct": false
+    },
+    {
+      "id": "SM-13",
+      "question": "Does Brightlake Systems provide pet insurance for employees' pets?",
+      "answerable": false,
+      "error": "Groq rate limit exceeded after retries; try again later.",
+      "correct": false
+    },
+    {
+      "id": "SM-14",
+      "question": "How many stock options are granted to newly hired software engineers?",
+      "answerable": false,
+      "error": "Groq rate limit exceeded after retries; try again later.",
+      "correct": false
+    },
+    {
+      "id": "SM-15",
+      "question": "What is the maximum amount the company reimburses for a gym membership?",
+      "answerable": false,
+      "error": "Groq rate limit exceeded after retries; try again later.",
+      "correct": false
+    }
+  ]
+}
