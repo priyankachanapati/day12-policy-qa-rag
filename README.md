@@ -203,3 +203,16 @@ LLM, what fine-tuning is, how they differ, and when to use each or both.
 | Product catalog Q&A | RAG | Prices, specifications and stock change often and must be read from the live catalog. |
 
 Full analysis: `activities/rag-vs-finetuning/decision_analysis.md`; write-up: `docs/Day-12-Activity-5-RAG-vs-Fine-Tuning.md`.
+
+## Day 12 – Activity 6: Building a RAG Pipeline from Scratch
+
+`activities/rag-from-scratch/rag.py` implements the three RAG stages as plain functions, using the `chromadb` and
+`groq` SDKs directly (no LangChain): `ingest()` (20 documents → 60 section chunks, local MiniLM embeddings,
+persistent Chroma), `retrieve(query, k)` (top-k chunks with scores), and `answer(query)` (Groq `gpt-oss-120b`,
+answers only from retrieved chunks, cites `[chunk_id]`, validates every citation, returns NOT_FOUND when the answer
+is missing).
+
+- Live demo (5 Groq calls, free tier): **OVERALL PASS**. 4 answers each cite a retrieved chunk; the question not
+  covered by the documents gets NOT_FOUND; 0 invalid citations. See `activities/rag-from-scratch/results.txt`.
+- Offline tests: 12 passed (`activities/rag-from-scratch/offline-tests.txt`).
+- Write-up: `docs/Day-12-Activity-6-RAG-Pipeline-from-Scratch.md`

@@ -1,0 +1,48 @@
+============================================================================================
+DAY 12 - ACTIVITY 6: RAG FROM SCRATCH - demo run 2026-11-26T12:56:30+00:00
+============================================================================================
+[1] ingest(): 20 documents -> 60 chunks stored in Chroma 'rag_from_scratch' (rag_db/)
+    embeddings: all-MiniLM-L6-v2 (local ONNX, 384-d, no API) | chunking: one chunk per '## ' section
+[2] retrieve(query, k=4) | [3] answer(query): Groq openai/gpt-oss-120b, temperature 0, relevance threshold similarity >= 0.3
+
+Q1 (answerable): How many days of paid annual leave do full-time employees get?
+  retrieved: leave-01-annual-leave::entitlement::0 (0.814), leave-02-sick-leave::entitlement::0 (0.621), leave-04-public-holidays::working-on-a-holiday::0 (0.592), leave-01-annual-leave::how-to-request::0 (0.541)
+  status   : answered
+  answer   : Full-time employees receive 20 days of paid annual leave per calendar year [leave-01-annual-leave::entitlement::0].
+  citations: ['leave-01-annual-leave::entitlement::0'] | invalid (not retrieved): none
+  [PASS] every cited chunk ID is one of the retrieved chunk IDs
+  [PASS] status matches expectation (answerable)
+
+Q2 (answerable): What should I do if I lose the phone with my authenticator app?
+  retrieved: sec-02-multi-factor-authentication::lost-phone::0 (0.767), sec-02-multi-factor-authentication::approved-method::0 (0.422), sec-02-multi-factor-authentication::requirement::0 (0.329), sec-03-phishing-and-incidents::incident-response::0 (0.313)
+  status   : answered
+  answer   : If you lose the phone with the authenticator app, you should contact the IT Service Desk immediately to reset MFA [sec-02-multi-factor-authentication::lost-phone::0].
+  citations: ['sec-02-multi-factor-authentication::lost-phone::0'] | invalid (not retrieved): none
+  [PASS] every cited chunk ID is one of the retrieved chunk IDs
+  [PASS] status matches expectation (answerable)
+
+Q3 (answerable): What is the hotel limit per night on business travel?
+  retrieved: work-04-travel-and-expenses::booking-travel::0 (0.573), work-04-travel-and-expenses::meals::0 (0.470), work-02-office-guidelines::meeting-rooms::0 (0.416), work-02-office-guidelines::desk-booking::0 (0.286)
+  status   : answered
+  answer   : The hotel reimbursement limit is up to USD 180 per night [work-04-travel-and-expenses::booking-travel::0].
+  citations: ['work-04-travel-and-expenses::booking-travel::0'] | invalid (not retrieved): none
+  [PASS] every cited chunk ID is one of the retrieved chunk IDs
+  [PASS] status matches expectation (answerable)
+
+Q4 (answerable): How many days per week can I work from home?
+  retrieved: work-01-remote-work::remote-days::0 (0.634), work-01-remote-work::core-hours::0 (0.420), work-01-remote-work::eligibility::0 (0.409), leave-01-annual-leave::entitlement::0 (0.408)
+  status   : answered
+  answer   : Eligible employees may work remotely for up to 2 days per week [work-01-remote-work::remote-days::0].
+  citations: ['work-01-remote-work::remote-days::0'] | invalid (not retrieved): none
+  [PASS] every cited chunk ID is one of the retrieved chunk IDs
+  [PASS] status matches expectation (answerable)
+
+Q5 (not in documents): What is the company's policy on bringing pets to the office?
+  retrieved: hr-01-code-of-conduct::respect-at-work::0 (0.311), work-02-office-guidelines::clean-desk::0 (0.308), work-02-office-guidelines::desk-booking::0 (0.307), work-02-office-guidelines::meeting-rooms::0 (0.271)
+  status   : not_found
+  answer   : NOT_FOUND: The documents do not contain the answer to this question.
+  citations: none | invalid (not retrieved): none
+  [PASS] every cited chunk ID is one of the retrieved chunk IDs
+  [PASS] status matches expectation (not in documents)
+
+OVERALL: PASS

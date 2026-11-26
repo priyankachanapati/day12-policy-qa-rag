@@ -1,0 +1,21 @@
+$ python -m pytest -v   (offline: stand-in LLM, temporary database, no API calls)
+============================= test session starts ==============================
+platform darwin -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0 -- /Users/vamsi/Documents/AI-Engineering-Training/Day-12/01-Code/rag-from-scratch/.venv/bin/python
+rootdir: /Users/vamsi/Documents/AI-Engineering-Training/Day-12/01-Code/rag-from-scratch
+plugins: anyio-4.16.0
+collecting ... collected 12 items
+
+test_rag.py::test_ingest_creates_one_chunk_per_section PASSED            [  8%]
+test_rag.py::test_chunks_have_metadata_and_unique_ids PASSED             [ 16%]
+test_rag.py::test_retrieve_returns_k_sorted_results PASSED               [ 25%]
+test_rag.py::test_retrieve_rejects_bad_input[-3] PASSED                  [ 33%]
+test_rag.py::test_retrieve_rejects_bad_input[   -3] PASSED               [ 41%]
+test_rag.py::test_retrieve_rejects_bad_input[valid-0] PASSED             [ 50%]
+test_rag.py::test_answer_accepts_valid_citation PASSED                   [ 58%]
+test_rag.py::test_answer_withholds_fabricated_citation PASSED            [ 66%]
+test_rag.py::test_answer_without_citation_is_withheld PASSED             [ 75%]
+test_rag.py::test_not_found_from_llm PASSED                              [ 83%]
+test_rag.py::test_irrelevant_query_returns_not_found_without_llm PASSED  [ 91%]
+test_rag.py::test_prompt_contains_only_retrieved_chunks PASSED           [100%]
+
+============================== 12 passed in 3.17s ==============================
