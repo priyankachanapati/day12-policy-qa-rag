@@ -165,3 +165,15 @@ space. It reuses Activity 1's embedding and cosine-similarity code by importing 
   `docs/Day-12-Activity-2-Word2Vec-How-Embeddings-Are-Learned.md`
 - Includes the exactly-three-sentence answer, how neural networks learn embeddings from context, and Word2Vec
   versus modern embedding models (see the activity README).
+
+## Day 12 – Activity 3: Generating Text Embeddings (Gemini API in place of OpenAI)
+
+`activities/openai-text-embeddings/` implements `embed(texts) -> list[list[float]]` with batching (up to 100 texts
+per request), a SHA-256 per-text disk cache (`cache/`, git-ignored) and error handling, plus a 20-sentence demo
+with semantic search and recommendation examples.
+
+- **Provider note:** the assignment specifies the OpenAI Embeddings API. To avoid cost, this uses the Google Gemini
+  Embeddings API (`gemini-embedding-001`, `google-genai` SDK). The workflow is equivalent; only the provider differs.
+- Dimension **3072**. Execution 1 made 2 API requests (1 batch of 20 sentences + 1 query); execution 2 made
+  **0 API requests** (all 21 texts served from the cache). See `activities/openai-text-embeddings/results.txt`.
+- Write-up: `docs/Day-12-Activity-3-Text-Embeddings-API.md`

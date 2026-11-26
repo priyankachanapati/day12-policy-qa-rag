@@ -1,0 +1,41 @@
+### EXECUTION 1 - 2026-11-26T12:31:40+00:00 (python main.py)
+Provider: Google Gemini Embeddings API via google-genai SDK (used instead of OpenAI to avoid cost)
+Model: gemini-embedding-001 | cache dir: cache/ | cache files before this execution: 0
+embed([]) -> []  (requested=0 unique=0 cache_hits=0 cache_misses=0 api_requests=0 batch_sizes=[])
+Pass 1: embed(20 sentences) -> 20 vectors | requested=20 unique=20 cache_hits=0 cache_misses=20 api_requests=1 batch_sizes=[20]
+Embedding vector dimension: 3072
+Pass 2: embed(same 20 sentences) -> 20 vectors | requested=20 unique=20 cache_hits=20 cache_misses=0 api_requests=0 batch_sizes=[]
+Pass 2 vectors identical to pass 1: True
+[PASS] second pass served entirely from cache (0 API requests)
+
+Use case - semantic search | query: 'I want my money back for a broken item' (requested=1 unique=1 cache_hits=0 cache_misses=1 api_requests=1 batch_sizes=[1])
+  1. 0.9645  I would like a refund for a damaged product.
+  2. 0.8798  Can I return an item and get my money back?
+  3. 0.7618  The mobile app crashes every time I open it.
+Use case - recommendation | similar to: 'Which laptop is best for video editing?'
+  0.8113  Recommend a lightweight notebook for travel.
+  0.7315  When is the help desk available to chat?
+Error handling | embed(['valid text', '   ']) -> ValueError: texts must be non-empty strings; invalid positions: [1]
+Cache files after this execution: 21
+
+### EXECUTION 2 - 2026-11-26T12:31:43+00:00 (python main.py)
+Provider: Google Gemini Embeddings API via google-genai SDK (used instead of OpenAI to avoid cost)
+Model: gemini-embedding-001 | cache dir: cache/ | cache files before this execution: 21
+embed([]) -> []  (requested=0 unique=0 cache_hits=0 cache_misses=0 api_requests=0 batch_sizes=[])
+Pass 1: embed(20 sentences) -> 20 vectors | requested=20 unique=20 cache_hits=20 cache_misses=0 api_requests=0 batch_sizes=[]
+Embedding vector dimension: 3072
+Pass 2: embed(same 20 sentences) -> 20 vectors | requested=20 unique=20 cache_hits=20 cache_misses=0 api_requests=0 batch_sizes=[]
+Pass 2 vectors identical to pass 1: True
+[PASS] second pass served entirely from cache (0 API requests)
+[INFO] pass 1 also made 0 API requests: all 20 vectors came from the disk cache of an earlier execution
+
+Use case - semantic search | query: 'I want my money back for a broken item' (requested=1 unique=1 cache_hits=1 cache_misses=0 api_requests=0 batch_sizes=[])
+  1. 0.9645  I would like a refund for a damaged product.
+  2. 0.8798  Can I return an item and get my money back?
+  3. 0.7618  The mobile app crashes every time I open it.
+Use case - recommendation | similar to: 'Which laptop is best for video editing?'
+  0.8113  Recommend a lightweight notebook for travel.
+  0.7315  When is the help desk available to chat?
+Error handling | embed(['valid text', '   ']) -> ValueError: texts must be non-empty strings; invalid positions: [1]
+Cache files after this execution: 21
+
