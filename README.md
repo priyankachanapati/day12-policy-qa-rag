@@ -153,3 +153,15 @@ closest pair, and the top-3 nearest neighbours for all 20 sentences. It does not
 - Write-up: `docs/Day-12-Activity-1-Embeddings-Deep-Dive.md`; screenshots `docs/evidence/10-*.png`, `11-*.png`
 - Run it: see `activities/embeddings-deep-dive/README.md`. The cached embeddings are included, so a run makes no
   API call unless `--refresh` is passed.
+
+## Day 12 – Activity 2: Word2Vec and How Embeddings Are Learned
+
+`activities/word2vec-contextual-embeddings/` checks why "refund" and "reimbursement" sit close together in embedding
+space. It reuses Activity 1's embedding and cosine-similarity code by importing it (same Gemini model and settings).
+
+- **cosine(refund, reimbursement) = 0.9154** (`gemini-embedding-001`, 3072 dimensions). "reimbursement" ranks 1st
+  of 7 comparison words for "refund"; unrelated controls (banana, thunderstorm) score about 0.77-0.78.
+- Saved output: `activities/word2vec-contextual-embeddings/results.txt`; write-up:
+  `docs/Day-12-Activity-2-Word2Vec-How-Embeddings-Are-Learned.md`
+- Includes the exactly-three-sentence answer, how neural networks learn embeddings from context, and Word2Vec
+  versus modern embedding models (see the activity README).

@@ -1,0 +1,31 @@
+============================================================================================
+DAY 12 - ACTIVITY 2: WORD2VEC AND HOW EMBEDDINGS ARE LEARNED - refund vs reimbursement
+============================================================================================
+Embedding model : gemini-embedding-001 (Google Gemini API), task_type=SEMANTIC_SIMILARITY
+Embeddings from : Gemini API (batchEmbedContents (1 request)); cached to embeddings-cache-90f9c17cdcddeae1.npz
+API key source  : GEMINI_API_KEY from ../policy-qa-rag/.env (value never printed)
+Items embedded  : 11 | vector dimension: 3072
+Code reused from: ../embeddings-deep-dive/embeddings_deep_dive.py (embed_texts, cosine_matrix, load_api_key)
+
+Checks: [PASS] 11 vectors returned | [PASS] same dimension for all | [PASS] finite values | [PASS] scores within [-1, 1] | [PASS] self-similarity = 1.0
+
+RESULT  cosine(refund, reimbursement) = 0.9154   (angle ~ 23.7 degrees)
+
+Word comparisons (cosine similarity to each target word):
+  word            role                                      vs refund  vs reimbursement
+  repayment       related: money paid back                     0.9085            0.9102
+  compensation    related: money for a loss                    0.8682            0.9289
+  invoice         same domain, different role (a bill)         0.8440            0.8646
+  salary          same domain, different role (wages)          0.8143            0.8569
+  banana          unrelated control                            0.7820            0.7839
+  thunderstorm    unrelated control                            0.7704            0.7671
+  Ranking of all words by similarity to 'refund': reimbursement 0.915, repayment 0.908, compensation 0.868, invoice 0.844, salary 0.814, banana 0.782, thunderstorm 0.770
+  'reimbursement' rank among 7 comparison words for 'refund': 1
+
+Example sentences (words used in context):
+  ctx_refund  : The store gave me a refund after I returned the broken headphones.
+  ctx_reimb   : The company paid my reimbursement for the hotel and taxi costs.
+  ctx_control : I ate a banana for breakfast this morning.
+  cosine(ctx_refund, ctx_reimb)   = 0.7967
+  cosine(ctx_refund, ctx_control) = 0.7330
+  cosine(ctx_reimb, ctx_control)  = 0.7164
